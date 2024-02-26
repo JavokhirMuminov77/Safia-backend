@@ -1,6 +1,7 @@
-let misol = 'javokhir';
 
-let str = 'javokhir'.split('').reverse();
-console.log(str);
 
-console.log("HELLO WORLD")
+// Task - H
+  function gerReverse(str: string): string {
+    return str.split("").reverse().join("");
+  }
+  console.log(gerReverse("hello"));
