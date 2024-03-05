@@ -1,10 +1,18 @@
+/*Project Standarts:
+- Login standarts
+-Naming standarts;
+   function, method, varible => CAMEL
+   vlass => PASCAL
+   folder => KEBAB
+   css => SNAKE
+-Error handling
+*/
 
-// Task - H
 
-function getPositive(arr: number[]): string {
-  let result = "";
-  arr.forEach((v) => (v > 0 ? (result += v) : null));
-  return result;
-}
+/*
+ Traditinal Api
+ Rest Api
+ GraphQL Api
 
-console.log(getPositive([1, -4, 2]));
+ ...../
+*/

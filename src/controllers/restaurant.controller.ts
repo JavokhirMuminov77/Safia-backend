@@ -1,6 +1,8 @@
 import{T} from "../libs/types/common";
 import { Request, Response } from "express";
-import MemberService from "../modules/member.servervice";
+import MemberService from "../modules/Member.servervice";
+import { MemberInput } from "../libs/types/member";
+import { MemberType } from "../libs/enums/member.enum";
 
 
 
@@ -8,6 +10,8 @@ const restaurantController: T = {};
 restaurantController.goHome = (req: Request, res: Response) => {
   try {
     res.send("Home Page");
+    console.log('home');
+
   } catch (err) {
     console.log(`Error, goHome:`, err)
   }
@@ -44,12 +48,22 @@ restaurantController.processLogin = (req: Request, res: Response) => {
 };
 
 
-restaurantController.processSignup = (req: Request, res: Response) => {
+restaurantController.processSignup = async  (req: Request, res: Response) => {
   try {
     console.log("processSignup");
-    res.send("Done");
+    console.log("body:", req.body);
+
+    const newMmember: MemberInput = req.body;
+    newMmember.memberType = MemberType.RESTAURANT
+
+    const memberService = new MemberService();
+    const result = await memberService.processSignup(newMmember);
+
+
+    res.send(result);
   } catch (err) {
     console.log("Error, processSignup:", err);
+    res.send(err);
   }
 };
 
