@@ -1,6 +1,6 @@
 import{T} from "../libs/types/common";
 import { Request, Response } from "express";
-import MemberService from "../modules/Member.servervice";
+import MemberService from "../modules/Member.service";
 import { LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
 
