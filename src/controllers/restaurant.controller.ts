@@ -62,11 +62,11 @@ restaurantController.processSignup = async  (req: Request, res: Response) => {
     console.log("body:", req.body);
 
     const newMmember: MemberInput = req.body;
-    newMmember.memberType = MemberType.RESTAURANT
-
+    newMmember.memberType = MemberType.RESTAURANT;
+    
     const memberService = new MemberService();
     const result = await memberService.processSignup(newMmember);
-
+    console.log("resultr", result);
 
     res.send(result);
   } catch (err) {

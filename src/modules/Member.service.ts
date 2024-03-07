@@ -16,14 +16,17 @@ class MemberService {
         .findOne({memberType: MemberType.RESTAURANT})
         .exec();
 ;
+console.log('inout',input);
+
         if (exist) throw new Errors(HttpmCode.BAD_REQUEST, Message.CREATE_FAILED);
 
-        const salt = await bcrypt.genSalt();
-        input.memberPasword = await bcrypt.hash(input.memberPasword, salt);
+         const salt = await bcrypt.genSalt();
+         input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
 
       try {
          const result = await this.memberModel.create(input);
-         result.memberPasword = "";
+         //result.memberPasword = "";
+         console.log('inout',result);
          return result;
       } catch (err) {
         throw new Errors(HttpmCode.BAD_REQUEST, Message.CREATE_FAILED);
@@ -54,8 +57,6 @@ class MemberService {
 
       return await this.memberModel.findById(member._id).exec();
 
-      console.log("memeberNick", member);
-      return member;
     }
 }
 
