@@ -10,3 +10,5 @@ function getDigits(input: string): string {
  }
 
  console.log(getDigits("m14i1t"));
+/* .c  dssmkksd dfskmkmaskmx dwdew .s'/.d's;d's ddsd//s';.ds;'ldf.s ;sd
+

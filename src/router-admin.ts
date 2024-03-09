@@ -1,9 +1,9 @@
-import express  from "express";
+ import express  from "express";
 const routerAdmin = express.Router();
 import memberController from './controllers/member.controller';
 import restaurantController from "./controllers/restaurant.controller";
 
-/**Restaurant */ 
+/**Restaurant */
 routerAdmin.get("/", restaurantController.goHome );
 
 
