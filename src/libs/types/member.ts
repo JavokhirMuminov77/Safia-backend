@@ -34,5 +34,5 @@ export interface MemberInput {
 
 export interface LoginInput {
   memberNick: string;
-  memberPasword: string;
+  memberPassword: string;
 }

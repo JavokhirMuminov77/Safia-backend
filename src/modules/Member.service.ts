@@ -40,13 +40,13 @@ public async login(input: LoginInput): Promise<Member> {
   const member = await this.memberModel
   .findOne(
     {memberNick: input.memberNick},
-    {memberNick: 1, memberPasword: 1})
+    {memberNick: 1, memberPassword: 1})
   .exec();
   if(!member) throw new Errors(HttpmCode.NOT_FOUND, Message.NO_MEMBER_NICK);
 
   const isMatch = await bcrypt.compare(
-    input.memberPasword,
-    member.memberPasword
+    input.memberPassword,
+    member.memberPassword
     );
 
 
@@ -89,13 +89,13 @@ public async login(input: LoginInput): Promise<Member> {
       const member = await this.memberModel
       .findOne(
         {memberNick: input.memberNick},
-        {memberNick: 1, memberPasword: 1})
+        {memberNick: 1, memberPassword: 1})
       .exec();
       if(!member) throw new Errors(HttpmCode.NOT_FOUND, Message.NO_MEMBER_NICK);
 
       const isMatch = await bcrypt.compare(
-        input.memberPasword,
-        member.memberPasword
+        input.memberPassword,
+        member.memberPassword
         );
 
 
