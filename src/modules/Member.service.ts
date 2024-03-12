@@ -50,7 +50,7 @@ public async login(input: LoginInput): Promise<Member> {
     );
 
 
-  if(isMatch){
+  if(!isMatch){
     throw new Errors(HttpmCode.UNAUTHORIZED, Message.WRONG_PASWORD);
   }
 
