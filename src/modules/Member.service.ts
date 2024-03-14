@@ -91,7 +91,7 @@ public async login(input: LoginInput): Promise<Member> {
         {memberNick: input.memberNick},
         {memberNick: 1, memberPassword: 1})
       .exec();
-      if(!member) throw new Errors(HttpmCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+      if(member) throw new Errors(HttpmCode.NOT_FOUND, Message.NO_MEMBER_NICK);
 
       const isMatch = await bcrypt.compare(
         input.memberPassword,
@@ -99,7 +99,7 @@ public async login(input: LoginInput): Promise<Member> {
         );
 
 
-      if(isMatch){
+      if(!isMatch){
         throw new Errors(HttpmCode.UNAUTHORIZED, Message.WRONG_PASWORD);
       }
 
