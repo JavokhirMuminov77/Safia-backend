@@ -2,11 +2,11 @@
 import { Request, Response } from "express";
 import Errors from "../libs/Errors";
 import { T } from "../libs/types/common";
-import ProductceService from "../modules/product.service";
+import ProductceService from "../modules/Product.service";
 
 //REACT
 const productController: T = {};
-const prodectService = new  ProductceService ;
+const prodectService = new  ProductceService() ;
 
 productController.getAllProducts = async  (req: Request, res: Response) => {
   try {
