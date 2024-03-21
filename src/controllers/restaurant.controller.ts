@@ -1,5 +1,5 @@
 import{T} from "../libs/types/common";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import MemberService from "../modules/Member.service";
 import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
@@ -118,5 +118,25 @@ restaurantController.checkAuthSession = async (
   }
 };
 
+//Nu method bizga murojatchini kimkligini aniqlab beradi
+restaurantController.verifyRestaurant = (
+   req: AdminRequest,
+   res: Response,
+  next: NextFunction
+  ) => {
+
+      if(req.session?.member?.memberType === MemberType.RESTAURANT) {
+        req.member = req.session.member;
+        next();
+        console.log("parol togri")
+        /*buyerdagi algaritim bizfa shu req ni ichida bizga kim kirib kelayotkanini aniqlashda ishlaydi*/
+      }else {
+       const message = Message.NOT_AUTHENTICATED;
+         res.send (
+         `<script> alert("${message}"); window.location.replace('/admin/login);</script>`
+         );
+         console.log("parol yuq")
+      }
+}
 
 export default restaurantController;

@@ -31,7 +31,7 @@ productController.createNewProduct = async  (req: Request, res: Response) => {
 
   }
 };
-
+ 
 
 
 
