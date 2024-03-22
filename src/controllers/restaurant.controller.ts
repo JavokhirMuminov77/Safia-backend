@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import MemberService from "../modules/Member.service";
 import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
-import { Message } from "../libs/Errors";
+import Errors, { HttpmCode, Message } from "../libs/Errors";
 
 const memberService = new MemberService();
 
@@ -48,16 +48,22 @@ restaurantController.getLogin = (req: Request, res: Response) => {
 restaurantController.processSignup = async  (req: AdminRequest, res: Response) => {
   try {
     console.log("processSignup");
-    console.log("body:", req.body);
+    const file =req.file;
+    console.log("file:",file);
+
+    if(!file) throw new Errors(HttpmCode.BAD_REQUEST,  Message.SOMETHING_WENT_WRONG );
+
+
 
     const newMmember: MemberInput = req.body;
+    newMmember.memberImage = file?.path;
     newMmember.memberType = MemberType.RESTAURANT;
     const result = await memberService.processSignup(newMmember);
     //TODO: SESSIONS AUTHENTACATION
 
     req.session.member = result;
     req.session.save( function() {
-       res.send(result);
+       res.render("/admin/product/all");
     });
   } catch (err) {
     console.log("Error, processSignup:", err);
@@ -76,7 +82,7 @@ restaurantController.processLogin = async (req: AdminRequest, res: Response) => 
 
     req.session.member = result;
     req.session.save( function() {
-       res.send(result);
+       res.redirect("/admin/product/all");
     });
 
   } catch (err) {
