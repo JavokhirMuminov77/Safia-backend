@@ -108,6 +108,16 @@ public async login(input: LoginInput): Promise<Member> {
       return await this.memberModel.findById(member._id).exec();
 
     }
-}
+
+
+    public async getUsers(): Promise<Member[]> {
+      const result = await this.memberModel
+      .find({memberType: MemberType.USER})
+      .exec();
+      if(!result) throw new Errors(HttpmCode.NOT_FOUND, Message.NO_DATA_FAUND);
+
+      return result;
+    }
+ }
 
 export default MemberService;

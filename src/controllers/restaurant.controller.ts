@@ -107,6 +107,33 @@ restaurantController.logout = async (req: AdminRequest, res: Response) => {
 };
 
 
+//getUsers => Restaurant adminlari nimadurni uzgartirishni istashsa qilinadi!
+restaurantController.getUsers = async (req: Request, res: Response) => {
+  try{
+    console.log("getUsers");
+    const result = await memberService.getUsers();
+    console.log(result);
+    res.render("users", {users: result});
+  }catch(err) {
+    console.log("Error, getUsers:", err);
+    res.redirect("/admin/login");//buyerda gar error bersa Login pagega yuboradi!
+  }
+};
+
+
+restaurantController.updateChosenUser = (req:Request, res:Response) => {
+  try {
+    console.log("updateChoseUser");
+  }catch (err) {
+    console.log("Error updateChoseUser:",err);
+  }
+}
+
+
+
+
+
+
 
 
 restaurantController.checkAuthSession = async (
