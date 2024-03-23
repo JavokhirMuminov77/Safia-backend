@@ -51,7 +51,7 @@ restaurantController.processSignup = async  (req: AdminRequest, res: Response) =
     const file =req.file;
     console.log("file:",file);
 
-    if(!file) throw new Errors(HttpmCode.BAD_REQUEST,  Message.SOMETHING_WENT_WRONG );
+    if(!file)  new Errors(HttpmCode.BAD_REQUEST,  Message.SOMETHING_WENT_WRONG );
 
 
 
@@ -82,7 +82,7 @@ restaurantController.processLogin = async (req: AdminRequest, res: Response) => 
 
     req.session.member = result;
     req.session.save( function() {
-       res.redirect("/admin/product/all");
+      res.redirect("/admin/product/all");
     });
 
   } catch (err) {
