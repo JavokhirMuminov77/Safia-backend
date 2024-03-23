@@ -121,11 +121,16 @@ restaurantController.getUsers = async (req: Request, res: Response) => {
 };
 
 
-restaurantController.updateChosenUser = (req:Request, res:Response) => {
+restaurantController.updateChosenUser = async (req:Request, res:Response) => {
   try {
     console.log("updateChoseUser");
+    const result = await memberService.updateChoseUser(req.body);
+
+    res.status(HttpmCode.OK).json({data: result});
   }catch (err) {
     console.log("Error updateChoseUser:",err);
+    if(err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standard.code).json(Errors.standard);
   }
 }
 
