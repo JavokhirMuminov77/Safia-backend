@@ -1,7 +1,7 @@
 import MemberModel from "../schema/Member.model";
 import { LoginInput, Member, MemberInput, MemberUpdateInput } from "../libs/types/member";
 import Errors ,{ HttpmCode, Message} from "../libs/Errors";
-import { MemberType } from "../libs/enums/member.enum";
+import { MemberStatus, MemberType } from "../libs/enums/member.enum";
 import * as bcrypt from "bcryptjs";
 import { shapeIntoMongooseOnjectId } from "../libs/config";
 
@@ -37,29 +37,31 @@ class MemberService {
 
 
 public async login(input: LoginInput): Promise<Member> {
-  //TODO: Cosider member status later
+  // TODO: Consider member status later
   const member = await this.memberModel
-  .findOne(
-    {memberNick: input.memberNick},
-    {memberNick: 1, memberPassword: 1})
-  .exec();
-  if(!member) throw new Errors(HttpmCode.NOT_FOUND, Message.NO_MEMBER_NICK);
-
+    .findOne(
+      {
+        memberNick: input.memberNick,
+        memberStatus: { $ne: MemberStatus.DELETE },
+      },
+      { memberNick: 1, memberPassword: 1, memberStatus: 1 }
+    )
+    .exec();
+  if (!member) throw new Errors(HttpmCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+  else if (member.memberStatus === MemberStatus.BLOCK) {
+    throw new Errors(HttpmCode.FORBIDDEN, Message.BLOCKED_USER);
+  }
   const isMatch = await bcrypt.compare(
     input.memberPassword,
     member.memberPassword
-    );
+  );
 
-
-  if(!isMatch){
+  if (!isMatch)
     throw new Errors(HttpmCode.UNAUTHORIZED, Message.WRONG_PASWORD);
-  }
-
-
 
   return await this.memberModel.findById(member._id).lean().exec();
-
 }
+
 
   /**SSR */
 
