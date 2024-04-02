@@ -63,7 +63,7 @@ restaurantController.processSignup = async  (req: AdminRequest, res: Response) =
 
     req.session.member = result;
     req.session.save( function() {
-       res.render("/admin/product/all");
+       res.redirect("/admin/login");
     });
   } catch (err) {
     console.log("Error, processSignup:", err);
