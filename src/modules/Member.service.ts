@@ -63,6 +63,25 @@ public async login(input: LoginInput): Promise<Member> {
 }
 
 
+
+public async getMemberDetail(member: Member):Promise<Member> {
+
+  const memberId = shapeIntoMongooseOnjectId(member._id);
+  const result = await this.memberModel.findOne({
+    _id: memberId,
+    memberStatus : MemberStatus.ACTIVE}).exec();
+
+
+    if(!result) throw new Errors(HttpmCode.NOT_FOUND, Message.NO_DATA_FAUND);
+
+  return result;
+}
+
+
+
+
+
+
   /**SSR */
 
     public async processSignup(input: MemberInput): Promise<Member> {

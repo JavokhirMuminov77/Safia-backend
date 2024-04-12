@@ -53,7 +53,7 @@ memberController.login = async (req: Request, res: Response) => {
 
     res.status(HttpmCode.OK).json({member: result, accessToken: token});
   } catch (err) {
-    console.log("Error, signup:", err);
+    console.log("Error, login:", err);
     if(err instanceof Errors) res.status(err.code).json(err);
     else res.status(Errors.standard.code).json(Errors.standard);
   }
@@ -68,14 +68,26 @@ memberController.logout = (req: ExtendedRequest, res:Response) => {
     res.cookie("acceessToklen", null, {maxAge: 0, httpOnly: true});
     res.status(HttpmCode.OK).json({logout: true});
   }catch(err) {
-    console.log("Error, signup:", err);
+    console.log("Error, logout:", err);
     if(err instanceof Errors) res.status(err.code).json(err);
     else res.status(Errors.standard.code).json(Errors.standard);
   }
 }
 
+/*MEMBERDETAIL*/
+memberController.getMemberDetail = async (req: ExtendedRequest, res:Response) => {
+  try {
+    console.log("getMemberDetail");
+    const result = await memberService.getMemberDetail(req.member);
+    res.status(HttpmCode.OK).json(result);
 
 
+  }catch(err) {
+    console.log("Error, getMemberDetail:", err);
+    if(err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standard.code).json(Errors.standard);
+  }
+}
 
 
 
