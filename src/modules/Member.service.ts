@@ -92,6 +92,21 @@ public async updateMember (
 }
 
 
+public async getTopUsers(): Promise<Member[]> {
+
+  const result = await this.memberModel
+  .find({
+    memberStatus: MemberStatus.ACTIVE,
+    memberPoints: {$gte: 1},
+  })
+  .sort({memberPoints: -1 })
+  .limit(4)
+  .exec();
+ if(!result) throw new Errors(HttpmCode.NOT_FOUND, Message.NO_DATA_FAUND);
+
+  return result;
+}
+
   /**SSR */
 
     public async processSignup(input: MemberInput): Promise<Member> {

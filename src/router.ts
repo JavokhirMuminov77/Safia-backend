@@ -20,6 +20,11 @@ router.post("/member/update",
    memberController.updateMember
    );
 
+
+
+
+router.get("/member/top-users", memberController.getTopUsers);
+
 /*Product*/
 
 /*Orders*/
