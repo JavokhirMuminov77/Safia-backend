@@ -1,7 +1,7 @@
 import{T} from "../libs/types/common";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import MemberService from "../modules/Member.service";
-import { LoginInput, Member, MemberInput } from "../libs/types/member";
+import { ExtendedRequest, LoginInput, Member, MemberInput } from "../libs/types/member";
 import Errors, { HttpmCode, Message } from "../libs/Errors";
 import AuthService from "../modules/Auth.service";
 import { AUTH_TIMER } from "../libs/config";
@@ -60,20 +60,45 @@ memberController.login = async (req: Request, res: Response) => {
 };
 
 
+/*LOGOUT*/
+
+memberController.logout = (req: ExtendedRequest, res:Response) => {
+  try {
+    console.log("logout");
+    res.cookie("acceessToklen", null, {maxAge: 0, httpOnly: true});
+    res.status(HttpmCode.OK).json({logout: true});
+  }catch(err) {
+    console.log("Error, signup:", err);
+    if(err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standard.code).json(Errors.standard);
+  }
+}
 
 
-memberController.verifyAuth = async (req: Request, res: Response) => {
+
+
+
+
+
+
+
+memberController.verifyAuth = async (
+  req: ExtendedRequest,
+  res: Response,
+  next: NextFunction,
+  ) => {
 
   try {
     let member = null;
     const token =req.cookies["accessToken"];
-    if(token) member = await authService.checkAuth(token);
+    if(token) req.member = await authService.checkAuth(token);
 
-    if(!member)
+    if(!req.member)
      throw new Errors(HttpmCode.UNAUTHORIZED, Message.NOT_AUTHENTICATED);
 
-    console.log("member:", member);
-    res.status(HttpmCode.OK).json({member: member});
+     next();
+    // console.log("member:", member);
+    // res.status(HttpmCode.OK).json({member: member});
 
   }catch (err) {
     console.log("Error, verifyAuth:", err);
@@ -82,5 +107,28 @@ memberController.verifyAuth = async (req: Request, res: Response) => {
   }
 
 }
+
+
+
+
+memberController.retrieveAuth = async (
+  req: ExtendedRequest,
+  res: Response,
+  next: NextFunction
+  ) => {
+
+  try {
+    const token =req.cookies["accessToken"];
+    if(token) req.member = await authService.checkAuth(token);
+
+    next();
+  }catch (err) {
+    console.log("Error, retrieveAuth:", err);
+    next();
+  }
+
+}
+
+
 
 export default memberController;
