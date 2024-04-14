@@ -3,12 +3,51 @@ import { Request, Response } from "express";
 import Errors, { HttpmCode, Message } from "../libs/Errors";
 import { T } from "../libs/types/common";
 import ProductceService from "../modules/Product.service";
-import { ProductInput } from "../libs/types/product";
+import { ProductInput, ProductInquiry } from "../libs/types/product";
 import { AdminRequest } from "../libs/types/member";
+import { ProductCollection } from "../libs/enums/product.enum";
 
 //REACT
 const productController: T = {};
 const prodectService = new  ProductceService() ;
+
+/**SPA */
+productController.getProducts = async (req:Request, res:Response) => {
+
+  try {
+    console.log("getProducts");
+
+    const {page, limit, order, productCollection, search} = req.query;
+    console.log(req.query);
+
+    const inquiry: ProductInquiry = {
+      order: String(order),
+      page: Number (page),
+      limit: Number (limit),
+    };
+
+    if(productCollection){
+    inquiry.productCollection = productCollection as ProductCollection;
+    }
+    if (search) inquiry.search = String(search);
+
+    const result = await prodectService.getProducts(inquiry);
+
+    res.status(HttpmCode.OK).json(result);
+  } catch (err) {
+    console.log("Error, getAllProduct:", err);
+    if(err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standard.code).json(Errors.standard);
+
+  }
+}
+
+
+
+
+
+
+/*SSR */
 
 productController.getAllProducts = async  (req: Request, res: Response) => {
   try {
