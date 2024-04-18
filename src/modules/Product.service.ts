@@ -5,6 +5,8 @@ import Errors from "../libs/Errors";
 import { shapeIntoMongooseOnjectId } from "../libs/config";
 import { ProductStatus } from "../libs/enums/product.enum";
 import { T } from "../libs/types/common";
+import {ObjectId} from "mongoose";
+import mongoose from "mongoose";
 
 class ProductService {
   private readonly productModel;
@@ -39,6 +41,25 @@ class ProductService {
     if(!result) throw new Errors(HttpmCode.NOT_FOUND, Message.NO_DATA_FAUND);
    return result;
   }
+
+
+
+  public async getProduct(memberId: ObjectId | null, id:string): Promise<Product> {
+    const productId = shapeIntoMongooseOnjectId(id);
+
+    let result = await this.productModel.findOne({
+      _id: productId, productStatus: ProductStatus.PROCESS,
+    })
+    .exec();
+
+    if(!result) throw new Errors(HttpmCode.NOT_FOUND, Message.NO_DATA_FAUND);
+
+    //todo : if authenticad users => first => view log creation
+
+    return result;
+  }
+
+
 
   //**SSR */
 
