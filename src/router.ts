@@ -43,6 +43,12 @@ router.post("/order/create",
 
 router.get("/order/all",
    memberController.verifyAuth,
-   orderController.createOrders )
+   orderController.createOrders );
+
+
+router.post("/order/update",
+   memberController.verifyAuth,
+   orderController.updateOrder
+   )
 
 export default router;
