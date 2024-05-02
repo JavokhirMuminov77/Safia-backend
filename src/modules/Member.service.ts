@@ -160,7 +160,7 @@ public async addUserPoint (member: Member, point: number):Promise<Member> {
 
       try {
          const result = await this.memberModel.create(input);
-         //result.memberPasword = "";
+         result.memberPassword = "";
          console.log('inout',result);
          return result;
       } catch (err) {
