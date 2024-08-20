@@ -2,9 +2,10 @@ import{T} from "../libs/types/common";
 import { NextFunction, Request, Response } from "express";
 import MemberService from "../modules/Member.service";
 import { ExtendedRequest, LoginInput, Member, MemberInput, MemberUpdateInput } from "../libs/types/member";
-import Errors, { HttpmCode, Message } from "../libs/Errors";
+import Erros, { HttpmCode, Message } from "../libs/Errors";
 import AuthService from "../modules/Auth.service";
 import { AUTH_TIMER } from "../libs/config";
+import Errors from "../libs/Errors";
 
 const memberService = new MemberService();
 const authService = new AuthService ();
@@ -94,20 +95,19 @@ memberController.logout = (req: ExtendedRequest, res:Response) => {
 }
 
 /*MEMBERDETAIL*/
-memberController.getMemberDetail = async (req: ExtendedRequest, res:Response) => {
-  try {
-    console.log("getMemberDetail");
-    const result = await memberService.getMemberDetail(req.member);
-    res.status(HttpmCode.OK).json(result);
+memberController.getMemberdetail = async (req: ExtendedRequest, res:Response) =>{
+  try{
+      console.log("getMemberdetail");
+      const result =  await memberService.getMemberDetail(req.member);
+      
 
-
-  }catch(err) {
-    console.log("Error, getMemberDetail:", err);
-    if(err instanceof Errors) res.status(err.code).json(err);
-    else res.status(Errors.standard.code).json(Errors.standard);
+      res.status(HttpmCode.OK).json(result);
+  } catch(err){
+      console.log("Error, getMemberDetail:", err);
+      if( err instanceof Erros) res.status(err.code).json(err);
+      else res.status(Erros.standard.code).json(Erros.standard )
   }
-}
-
+};
 
 /*UDATEUSERS*/
 memberController.updateMember = async (req:ExtendedRequest, res: Response ) => {
