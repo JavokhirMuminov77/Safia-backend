@@ -1,6 +1,5 @@
-import {ObjectId} from "mongoose";
+import { ObjectId } from "mongoose";
 import { ViewGroup } from "../enums/view.enum";
-
 
 export interface View {
   _id: ObjectId;
@@ -8,7 +7,7 @@ export interface View {
   memberId: ObjectId;
   viewRefId: ObjectId;
   createdAt: Date;
-  updateAt: Date;
+  updatedAt: Date;
 }
 
 export interface ViewInput {
