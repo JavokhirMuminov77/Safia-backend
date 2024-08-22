@@ -8,7 +8,7 @@ import {
   OrderItemInput,
   OrderUpdateInput,
 } from "../libs/types/order";
-import { shapeIntoMongooseObjectId } from "../libs/config";
+import { shapeIntoMongooseOnjectId } from "../libs/config";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import { ObjectId } from "mongoose";
 import { OrderStatus } from "../libs/enums/order.enum";
@@ -29,7 +29,7 @@ class OrderService {
     member: Member,
     input: OrderItemInput[]
   ): Promise<Order> {
-    const memberId = shapeIntoMongooseObjectId(member._id);
+    const memberId = shapeIntoMongooseOnjectId(member._id);
     const amount = input.reduce((accumulator: number, item: OrderItemInput) => {
       return accumulator + item.itemPrice * item.itemQuantity;
     }, 0);
@@ -59,7 +59,7 @@ class OrderService {
   ): Promise<void> {
     const promisedList = input.map(async (item: OrderItemInput) => {
       item.orderId = orderId;
-      item.productId = shapeIntoMongooseObjectId(item.productId);
+      item.productId = shapeIntoMongooseOnjectId(item.productId);
       await this.orderItemModel.create(item);
       return "INSERTED";
     });
@@ -72,7 +72,7 @@ class OrderService {
     member: Member,
     inquiry: OrderInquiry
   ): Promise<Order[]> {
-    const memberId = shapeIntoMongooseObjectId(member._id);
+    const memberId = shapeIntoMongooseOnjectId(member._id);
     const matches = { memberId: memberId, orderStatus: inquiry.orderStatus };
 
     const result = await this.orderModel
@@ -108,8 +108,8 @@ class OrderService {
     member: Member,
     input: OrderUpdateInput
   ): Promise<Order> {
-    const memberId = shapeIntoMongooseObjectId(member._id),
-      orderId = shapeIntoMongooseObjectId(input.orderId),
+    const memberId = shapeIntoMongooseOnjectId(member._id),
+      orderId = shapeIntoMongooseOnjectId(input.orderId),
       orderStatus = input.orderStatus;
 
     const result = await this.orderModel

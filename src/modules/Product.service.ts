@@ -1,5 +1,5 @@
 import { T } from "../libs/types/common";
-import { shapeIntoMongooseObjectId } from "../libs/config";
+import { shapeIntoMongooseOnjectId } from "../libs/config";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import {
   Product,
@@ -56,7 +56,7 @@ class ProductService {
     memberId: ObjectId | null,
     id: string
   ): Promise<Product> {
-    const productId = shapeIntoMongooseObjectId(id);
+    const productId = shapeIntoMongooseOnjectId(id);
 
     let result = await this.productModel
       .findOne({
@@ -116,7 +116,7 @@ class ProductService {
     id: string,
     input: ProductUpdateInput
   ): Promise<Product> {
-    id = shapeIntoMongooseObjectId(id);
+    id = shapeIntoMongooseOnjectId(id);
     const result = await this.productModel
       .findOneAndUpdate({ _id: id }, input, { new: true })
       .exec();

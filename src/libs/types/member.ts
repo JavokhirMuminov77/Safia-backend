@@ -1,10 +1,10 @@
-import { ObjectId } from "mongoose";
-import { MemberStatus, MemberType } from "../enums/member.enum";
+import {ObjectId} from "mongoose";
+import { MemberStatus,MemberType } from "../enums/member.enum";
 import { Request } from "express";
 import { Session } from "express-session";
 
 export interface Member {
-  _id: ObjectId;
+  _id:ObjectId;
   memberType: MemberType;
   memberStatus: MemberStatus;
   memberNick: string;
@@ -16,7 +16,10 @@ export interface Member {
   memberPoints: number;
   createdAt: Date;
   updatedAt: Date;
+
 }
+
+
 
 export interface MemberInput {
   memberType?: MemberType;
@@ -28,6 +31,7 @@ export interface MemberInput {
   memberDesc?: string;
   memberImage?: string;
   memberPoints?: number;
+
 }
 
 export interface LoginInput {
@@ -35,8 +39,11 @@ export interface LoginInput {
   memberPassword: string;
 }
 
+
+/*Buyerda biz admin bolsak userlarni nimalarini uzgartirishimiz
+mumkinligi haqida yozilgan*/
 export interface MemberUpdateInput {
-  _id: ObjectId;
+  _id:ObjectId;
   memberStatus?: MemberStatus;
   memberNick?: string;
   memberPhone?: string;
@@ -44,6 +51,7 @@ export interface MemberUpdateInput {
   memberAddress?: string;
   memberDesc?: string;
   memberImage?: string;
+
 }
 
 export interface ExtendedRequest extends Request {
@@ -52,9 +60,11 @@ export interface ExtendedRequest extends Request {
   files: Express.Multer.File[];
 }
 
+
+
 export interface AdminRequest extends Request {
-  member: Member;
-  session: Session & { member: Member };
+  member: Member,
+  session: Session & { member: Member};
   file: Express.Multer.File;
   files: Express.Multer.File[];
 }

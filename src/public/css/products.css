@@ -12,7 +12,7 @@
 .products-container a {
   text-decoration: none;
   text-decoration: none;
-  background-color: #011c1afc;
+  background-color: #8FBC8F;
   margin-top: 20px;
   border: 2px solid white;
   color: white;
@@ -23,7 +23,7 @@
 }
 
 .products-container .nav-item a {
-  color: #e3c08d;
+  color: white;
 }
 
 .products-container .nav-item a.disabled {
