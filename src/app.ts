@@ -7,8 +7,8 @@ import routerAdmin from "./router-admin";
 import morgan from "morgan";
 import cookieParser from 'cookie-parser';
 import { MORGAN_FORMAT } from './libs/config';
-import { Server as SocketIOServer } from 'socket.io';
-import http from "http";
+// import { Server as SocketIOServer } from 'socket.io';
+// import http from "http";
 import session from 'express-session';
 import ConnectMongoDB from 'connect-mongodb-session';
 import { T } from './libs/types/common';
@@ -64,24 +64,24 @@ app.use('/', router); //Mideleware Design Pattern
 
 
 
-const server = http.createServer(app);
-const io = new SocketIOServer(server, {
-  cors: {
-    origin: true,
-    credentials: true,
-  },
-});
+// const server = http.createServer(app);
+// const io = new SocketIOServer(server, {
+//   cors: {
+//     origin: true,
+//     credentials: true,
+//   },
+// });
 
-let summaryClient = 0;
+// let summaryClient = 0;
 
-io.on("connection", (socket) => {
-  summaryClient++;
-  console.log(`Connection && Total ${summaryClient}`);
+// io.on("connection", (socket) => {
+//   summaryClient++;
+//   console.log(`Connection && Total ${summaryClient}`);
 
-  io.on("disconnect", (socket) => {
-    summaryClient--;
-    console.log(`Disconnection && Total ${summaryClient}`);
-  });
-});
+//   io.on("disconnect", (socket) => {
+//     summaryClient--;
+//     console.log(`Disconnection && Total ${summaryClient}`);
+//   });
+// });
 
-export default server;
+export default app;
