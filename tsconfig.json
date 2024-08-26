@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "commonjs",
-    "outDir": "./dist",
+    "target": "ES2020", //  loyiha yozilgani esma jsda
+    "module": "commonjs", // common js ga ugirishini aytmoqdamiz
+    "outDir": "./dist", // natijasini shu folderga yozib berishini aytamiz
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
-      "*": ["node_modules/*"]
+      "*": ["node_modules/*"] // node module ning path ni korsatmoqdamiz
     }
   },
   "include": ["src/**/*.ts"],
