@@ -7,8 +7,7 @@ import routerAdmin from "./router-admin";
 import morgan from "morgan";
 import cookieParser from 'cookie-parser';
 import { MORGAN_FORMAT } from './libs/config';
-// import { Server as SocketIOServer } from 'socket.io';
-// import http from "http";
+
 import session from 'express-session';
 import ConnectMongoDB from 'connect-mongodb-session';
 import { T } from './libs/types/common';
@@ -61,6 +60,7 @@ app.set("view engine", "ejs");
 /**4-ROUTERS */
 app.use("/admin", routerAdmin);// EJS
 app.use('/', router); //Mideleware Design Pattern
+
 
 
 
