@@ -65,7 +65,6 @@ app.use('/', router); //Mideleware Design Pattern
 
 
 
-
 const server = http.createServer(app);
 const io = new SocketIOServer(server, {
   cors: {

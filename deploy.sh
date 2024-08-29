@@ -5,9 +5,8 @@ git reset --hard
 git checkout master
 git pull origin master
 
-npm install fs-extra
 npm i
-# npm run build
+npm run build
 pm2 start process.config.js --env production
 
 # DEVELOPMENT
@@ -16,4 +15,4 @@ pm2 start process.config.js --env production
 # git pull origin develop
 
 # npm i
-# pm2 start "npm run start:dev" --name=Safia
+# pm2 start "npm run start:dev" --name=MEGACOFFEE

@@ -1,21 +1,21 @@
-import dotenv from 'dotenv';
-dotenv.config( {
-    path: process.env.NODE_ENV === "production" ? ".env.production" : ".env",
+import dotenv from "dotenv";
+dotenv.config({
+  path: process.env.NODE_ENV === "production" ? ".env.production" : ".env",
+});
 
-}
-);
-
-import mongoose from 'mongoose';
-import server from './app';
+import mongoose from "mongoose";
+import server from "./app";
 
 mongoose
-.connect(process.env.MONGO_URL as string, {})
-.then((data) => {
-  console.log("Mongodb connection succed");
-  const PORT = process.env.PORT ?? 3003;
-  server.listen(PORT, function() {
-    console.log(`The server is running successfully on port: ${PORT}`);
-    console.log(`Admin project on http://localhost:${PORT}/admin \n`)
+  .connect(process.env.MONGO_URL as string)
+  .then((data) => {
+    console.log("MongoDb connection succeed");
+    const PORT = process.env.PORT ?? 3003;
+    server.listen(PORT, function () {
+      console.log(`The server is running successfully on PORT: ${PORT}`);
+      console.info(`Admin project on http://localhost:${PORT}/admin \n`);
+    });
   })
-})
-.catch((err) =>console.log("ERROR on cinection MongoDB", err));
+  .catch((err) => {
+    console.log("ERROR on connection MongoDb", err);
+  });
