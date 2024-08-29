@@ -7,7 +7,7 @@ git pull origin master
 
 npm install fs-extra
 npm i
-npm run build
+# npm run build
 pm2 start process.config.js --env production
 
 # DEVELOPMENT
