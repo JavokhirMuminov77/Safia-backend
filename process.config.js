@@ -8,11 +8,11 @@ module.exports = {
       script: "./dist/server.js",
       watch: false,
       env_production: {
-       MONGO: 'mongodb+srv://javokhirmuminovdev:Javokhir7755@cluster0.mongodb.net/Obkeber-food?retryWrites=true&w=majority',
+        NODE_ENV: 'production',
         
       },
       env_development: {
-        NODE_ENV:'mongodb+srv://javokhirmuminovdev:Javokhir7755@cluster0.mongodb.net/Obkeber-food?retryWrites=true&w=majority',
+        NODE_ENV:'development',
       },
       instances: 1,
       exec_mode: "cluster",
