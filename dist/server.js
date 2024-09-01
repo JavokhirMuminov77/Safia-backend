@@ -4,24 +4,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
-console.log('MONGO_URL 12:', process.env.MONGO_URL);
 dotenv_1.default.config({
     path: process.env.NODE_ENV === "production" ? ".env.production" : ".env",
 });
-console.log('MONGO_URL13:', process.env.MONGO_URL);
 const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
-console.log('MONGO_URL14:', process.env.MONGO_URL);
 mongoose_1.default
-    .connect(process.env.MONGO_URL)
+    .connect(process.env.MONGO_URL, {})
     .then((data) => {
-    console.log("MongoDb connection succeed");
-    const PORT = process.env.PORT ?? 3003;
+    console.log("MongoDB connection succeed");
+    const PORT = process.env.PORT ?? 3001;
     app_1.default.listen(PORT, function () {
-        console.log(`The server is running successfully on PORT: ${PORT}`);
-        console.info(`Admin project on http://localhost:${PORT}/admin \n`);
+        console.info(`The server is running successfully: ${PORT}`);
+        console.log(`Admin project on http://localhost:${PORT}/admin \n`);
     });
 })
-    .catch((err) => {
-    console.log("ERROR on connection MongoDb casdcasdcfsdcfedwfcwsedcsadcsdc Javokhir", err);
-});
+    .catch((err) => console.log("ERROR on connection MongoDB", err));

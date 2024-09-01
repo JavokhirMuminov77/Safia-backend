@@ -62,7 +62,7 @@ let summaryClient = 0;
 io.on("connection", (socket) => {
     summaryClient++;
     console.log(`Connection && Total ${summaryClient}`);
-    io.on("disconnect", (socket) => {
+    socket.on("disconnect", () => {
         summaryClient--;
         console.log(`Disconnection && Total ${summaryClient}`);
     });
